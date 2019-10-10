@@ -15,8 +15,7 @@ const addMonths = (dateStr, m) => {
 const getPrevWeek = (w = 1) => {
   const today = new Date(new Date().setHours(0, 0, 0))
   const dow = today.getDay()
-  const isSunday = dow === 0
-  const daysToWeekStart = isSunday ? w * -7 : w * (-6 - dow)
+  const daysToWeekStart = !dow ? w * -7 : w * (-6 - dow)
   const weekStart = addDays(today, daysToWeekStart).toISOString()
   const weekEnd = addDays(today, daysToWeekStart + 6).toISOString()
   return { weekStart, weekEnd }
@@ -29,4 +28,5 @@ module.exports = {
   addMonths,
   getPrevWeek,
   zeroPad
+
 }
