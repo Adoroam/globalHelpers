@@ -25,4 +25,13 @@ const writeNested = (obj, str, val) => {
   return { ...obj, ...output }
 }
 
-module.exports = { crushV3, uncrush, unique, readNested, writeNested }
+const yell = x => x.toUpperCase()
+
+module.exports = {
+  crushV3,
+  uncrush,
+  unique,
+  readNested,
+  writeNested,
+  yell
+}
