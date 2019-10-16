@@ -25,6 +25,9 @@ const writeNested = (obj, str, val) => {
   return { ...obj, ...output }
 }
 
+// any number of objects => one object
+const objoin = (...obs) => obs.reduce((ac, ob) => ({ ...ac, ...ob }), {})
+
 module.exports = {
   crushV3,
   uncrush,
