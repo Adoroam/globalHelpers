@@ -13,7 +13,7 @@ const addMonths = (dateStr, m) => {
 
 // argument is number of weeks before today, defaults to last week (1)
 const getPrevWeek = (w = 1) => {
-  const today = new Date(new Date().setHours(0, 0, 0))
+  const today = new Date(new Date().setHours(12))
   const dow = today.getDay()
   const daysToWeekStart = !dow ? w * -7 : w * (-6 - dow)
   const weekStart = addDays(today, daysToWeekStart).toISOString()
@@ -28,5 +28,4 @@ module.exports = {
   addMonths,
   getPrevWeek,
   zeroPad
-
 }
