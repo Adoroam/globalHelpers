@@ -25,24 +25,29 @@ const getPrevWeek = (w = 1) => {
 
 const zeroPad = num => (num.toString().length < 2 ? `0${num}` : num)
 
-const fedHolidays = year => {
+const fedHolidays = (start, end) => {
   const options = { shiftSaturdayHolidays: true, shiftSundayHolidays: true }
-  const holidays = fedHolidayList.allForYear(year, options)
+  const holidays = fedHolidayList.federalHolidaysInRange(start, end, options)
   const blacklist = [
     'Birthday of Martin Luther King, Jr.',
     "Washington's Birthday",
     'Columbus Day',
     'Veterans Day'
   ]
-  const filtered = holidays.filter(({ name }) => !blacklist.includes(name))
+  const filtered = holidays
+    .filter(({ name }) => !blacklist.includes(name))
+    .map(({ name, date }) => ({ name, date }))
   const thanksgiving = filtered.find(({ name }) =>
     name.includes('Thanksgiving')
   )
-  const blackFriday = {
-    name: 'Black Friday',
-    date: addDays(thanksgiving.date, 1)
+  if (!!thanksgiving) {
+    const blackFriday = {
+      name: 'Black Friday',
+      date: addDays(thanksgiving.date, 1)
+    }
+    return [...filtered, blackFriday]
   }
-  return [...filtered, blackFriday].map(({ name, date }) => ({ name, date }))
+  return filtered
 }
 
 module.exports = {
