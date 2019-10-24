@@ -27,7 +27,7 @@ const zeroPad = num => (num.toString().length < 2 ? `0${num}` : num)
 
 const fedHolidays = (start, end) => {
   const options = { shiftSaturdayHolidays: true, shiftSundayHolidays: true }
-  const holidays = fedHolidayList.federalHolidaysInRange(start, end, options)
+  const holidays = fedHolidayList.inRange(start, end, options)
   const blacklist = [
     'Birthday of Martin Luther King, Jr.',
     "Washington's Birthday",
