@@ -25,9 +25,10 @@ const getPrevWeek = (w = 1) => {
 
 const zeroPad = num => (num.toString().length < 2 ? `0${num}` : num)
 
-const fedHolidays = (start, end) => {
+const fedHolidays = (...rangeStr) => {
+  const range = rangeStr.map(x => new Date(x))
   const options = { shiftSaturdayHolidays: true, shiftSundayHolidays: true }
-  const holidays = fedHolidayList.inRange(start, end, options)
+  const holidays = fedHolidayList.inRange(...range, options)
   const blacklist = [
     'Birthday of Martin Luther King, Jr.',
     "Washington's Birthday",
