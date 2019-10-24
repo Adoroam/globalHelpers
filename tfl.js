@@ -46,9 +46,9 @@ const fedHolidays = (...rangeStr) => {
       name: 'Black Friday',
       date: addDays(thanksgiving.date, 1)
     }
-    return [...filtered, blackFriday]
+    return [...filtered, blackFriday].map(({date}) => date)
   }
-  return filtered
+  return filtered.map(({ date }) => date)
 }
 
 module.exports = {
