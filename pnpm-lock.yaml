@@ -1,0 +1,10 @@
+dependencies:
+  '@18f/us-federal-holidays': 1.4.0
+lockfileVersion: 5.1
+packages:
+  /@18f/us-federal-holidays/1.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-PKv+70d/9Rk8OEjKt7r/vro+pCrgJd4iy5kz1h+a6e/NF8IejZR+pbq8xNVabgDJTZxH6tIrDqHLTt7Hs5ABFw==
+specifiers:
+  '@18f/us-federal-holidays': ^1.4.0

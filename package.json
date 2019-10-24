@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "ado & zerf",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@18f/us-federal-holidays": "^1.4.0"
+  }
 }

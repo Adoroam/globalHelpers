@@ -1,3 +1,4 @@
+const fedHolidays = require('@18f/us-federal-holidays')
 const addDays = (dateStr, d) => {
   const date = new Date(dateStr)
   date.setDate(date.getDate() + d)
@@ -27,5 +28,6 @@ module.exports = {
   addDays,
   addMonths,
   getPrevWeek,
-  zeroPad
+  zeroPad,
+  fedHolidays
 }
