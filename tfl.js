@@ -1,4 +1,5 @@
-const fedHolidays = require('@18f/us-federal-holidays')
+const fedHolidayList = require('@18f/us-federal-holidays')
+
 const addDays = (dateStr, d) => {
   const date = new Date(dateStr)
   date.setDate(date.getDate() + d)
@@ -23,6 +24,26 @@ const getPrevWeek = (w = 1) => {
 }
 
 const zeroPad = num => (num.toString().length < 2 ? `0${num}` : num)
+
+const fedHolidays = year => {
+  const options = { shiftSaturdayHolidays: true, shiftSundayHolidays: true }
+  const holidays = fedHolidayList.allForYear(year, options)
+  const blacklist = [
+    'Birthday of Martin Luther King, Jr.',
+    "Washington's Birthday",
+    'Columbus Day',
+    'Veterans Day'
+  ]
+  const filtered = holidays.filter(({ name }) => !blacklist.includes(name))
+  const thanksgiving = filtered.find(({ name }) =>
+    name.includes('Thanksgiving')
+  )
+  const blackFriday = {
+    name: 'Black Friday',
+    date: addDays(thanksgiving.date, 1)
+  }
+  return [...filtered, blackFriday].map(({ name, date }) => ({ name, date }))
+}
 
 module.exports = {
   addDays,
