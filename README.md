@@ -20,3 +20,5 @@ return msg
 ```
 
 You can choose any variable name when declaring it in the settings file, but we're currently using `fns` for consistency.
+
+You must install `pdftk` (apt, not npm) for `pdffiller` to work correctly.
