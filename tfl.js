@@ -17,19 +17,28 @@ const addMonths = (dateStr, m) => {
 const zeroHour = dateStr => {
   const date = new Date(dateStr)
   const hours = [0, 0, 0, 0]
-  date.setUTCHours(...hours)
+  date.setHours(...hours)
   return date.toISOString()
 }
 
 // argument is number of weeks before today, defaults to last week (1)
 const getPrevWeek = (w = 1) => {
+  // zero out today
   const today = new Date(zeroHour(new Date()))
+  // get the current day of the week
   const dow = today.getDay()
-  const offsetDate = addDays(today, (w - 1) * -7)
-  const daysToStart = !dow ? -7 : -6 - dow
-  const startDay = addDays(offsetDate, daysToStart)
-  const endDay = addDays(startDay, 6)
-  const [start, end] = [startDay, endDay].map(zeroHour)
+  // find out how many days away today is from monday
+  const diff = dow - 1
+  // set the start to this monday
+  const startDay = addDays(today, !dow ? -6 : -diff)
+  // set the end to next monday
+  const endDay = addDays(startDay, 7)
+  // make sure those days are zeroed out, then add negative w weeks worth of days
+  const [start, end] = [startDay, endDay]
+    .map(zeroHour)
+    .map(day => addDays(day, w * -7))
+    .map(day => day.toISOString().replace(/T(.+)Z/i, 'T00:00:00.000Z'))
+
   return {
     start,
     end,
@@ -91,3 +100,10 @@ module.exports = {
   fedHolidays
   // pdfFiller
 }
+
+// console.log(getPrevWeek().start, getPrevWeek().end)
+// console.log(getPrevWeek(2).start, getPrevWeek(2).end)
+// console.log(getPrevWeek(3).start, getPrevWeek(3).end)
+// console.log(getPrevWeek(4).start, getPrevWeek(4).end)
+// console.log(getPrevWeek(5).start, getPrevWeek(5).end)
+// console.log(getPrevWeek(6).start, getPrevWeek(6).end)
