@@ -14,14 +14,25 @@ const addMonths = (dateStr, m) => {
   return date
 }
 
+const hourPad = (dateStr, high=false) => {
+  const date = new Date(dateStr)
+  const hourVals = high ? [23, 59, 59, 999] : [0, 0, 0, 0]
+  date.setUTCHours(...hourVals)
+  return date.toISOString()
+}
+
 // argument is number of weeks before today, defaults to last week (1)
 const getPrevWeek = (w = 1) => {
-  const today = new Date(new Date().setHours(12))
+  const today = new Date(new Date().setUTCHours(0,0,0))
   const dow = today.getDay()
-  const daysToWeekStart = !dow ? w * -7 : w * (-6 - dow)
-  const weekStart = addDays(today, daysToWeekStart).toISOString()
-  const weekEnd = addDays(today, daysToWeekStart + 6).toISOString()
-  return { weekStart, weekEnd }
+  const offsetDate = addDays(today, (w - 1) * -7)
+  const daysToStart = !dow ? -8 : (-7 - dow)
+  const startDay = addDays(offsetDate, daysToStart)
+  const endDay = addDays(offsetDate, daysToStart + 6)
+  return { 
+    weekStart: hourPad(startDay), 
+    weekEnd: hourPad(endDay, true)
+  }
 }
 
 const zeroPad = num => (num.toString().length < 2 ? `0${num}` : num)
