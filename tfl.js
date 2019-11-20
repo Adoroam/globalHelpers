@@ -18,7 +18,7 @@ const zeroHour = dateStr => {
   const date = new Date(dateStr)
   const hours = [0, 0, 0, 0]
   date.setUTCHours(...hours)
-  return date
+  return date.toISOString()
 }
 
 // argument is number of weeks before today, defaults to last week (1)
