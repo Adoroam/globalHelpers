@@ -14,24 +14,28 @@ const addMonths = (dateStr, m) => {
   return date
 }
 
-const hourPad = (dateStr, high=false) => {
+const zeroHour = dateStr => {
   const date = new Date(dateStr)
-  const hourVals = high ? [23, 59, 59, 999] : [0, 0, 0, 0]
-  date.setUTCHours(...hourVals)
-  return date.toISOString()
+  const hours = [0, 0, 0, 0]
+  date.setUTCHours(...hours)
+  return date
 }
 
 // argument is number of weeks before today, defaults to last week (1)
 const getPrevWeek = (w = 1) => {
-  const today = new Date(new Date().setUTCHours(0,0,0))
+  const today = zeroHour(new Date())
   const dow = today.getDay()
   const offsetDate = addDays(today, (w - 1) * -7)
-  const daysToStart = !dow ? -8 : (-7 - dow)
+  const daysToStart = !dow ? -7 : -6 - dow
   const startDay = addDays(offsetDate, daysToStart)
-  const endDay = addDays(offsetDate, daysToStart + 6)
-  return { 
-    weekStart: hourPad(startDay), 
-    weekEnd: hourPad(endDay, true)
+  const endDay = addDays(startDay, 6)
+  const [start, end] = [startDay, endDay].map(zeroHour)
+  return {
+    start,
+    end,
+    query: {
+      $and: [{ date: { $gte: start } }, { date: { $lte: end } }]
+    }
   }
 }
 
@@ -83,6 +87,7 @@ module.exports = {
   addMonths,
   getPrevWeek,
   zeroPad,
-  fedHolidays,
+  zeroHour,
+  fedHolidays
   // pdfFiller
 }
