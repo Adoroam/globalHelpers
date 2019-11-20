@@ -10,7 +10,6 @@
   "author": "ado & zerf",
   "license": "ISC",
   "dependencies": {
-    "@18f/us-federal-holidays": "^1.4.0",
-    "pdffiller": "^0.0.11"
+    "@18f/us-federal-holidays": "^1.4.0"
   }
 }

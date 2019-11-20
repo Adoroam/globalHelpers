@@ -65,18 +65,18 @@ const fedHolidays = (...rangeStr) => {
 
 // PDF Filler
 
-// bool handling
-const isBool = v => typeof v === 'boolean'
-const checkbox = v => (v ? 'Yes' : false)
-const handleVal = v => isBool(v) ? checkbox(v) : v
+// // bool handling
+// const isBool = v => typeof v === 'boolean'
+// const checkbox = v => (v ? 'Yes' : false)
+// const handleVal = v => isBool(v) ? checkbox(v) : v
 
-// create formatter
-const keyReducer = (ac, [k, v]) => ({ ...ac, [k]: handleVal(v) })
-const formatPdfKeys = data => Object.entries(data).reduce(keyReducer, {})
+// // create formatter
+// const keyReducer = (ac, [k, v]) => ({ ...ac, [k]: handleVal(v) })
+// const formatPdfKeys = data => Object.entries(data).reduce(keyReducer, {})
 
-// append method
-pdfFiller.fill = (src, out, data, callback) =>
-  pdfFiller.fillForm(src, out, formatPdfKeys(data), callback)
+// // append method
+// pdfFiller.fill = (src, out, data, callback) =>
+//   pdfFiller.fillForm(src, out, formatPdfKeys(data), callback)
 
 module.exports = {
   addDays,
