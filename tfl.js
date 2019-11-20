@@ -23,7 +23,7 @@ const zeroHour = dateStr => {
 
 // argument is number of weeks before today, defaults to last week (1)
 const getPrevWeek = (w = 1) => {
-  const today = zeroHour(new Date())
+  const today = new Date(zeroHour(new Date()))
   const dow = today.getDay()
   const offsetDate = addDays(today, (w - 1) * -7)
   const daysToStart = !dow ? -7 : -6 - dow
