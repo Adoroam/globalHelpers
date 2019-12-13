@@ -1,5 +1,5 @@
 const fedHolidayList = require('@18f/us-federal-holidays')
-const pdfFiller = require('pdffiller')
+// const pdfFiller = require('pdffiller')
 
 const addDays = (dateStr, d) => {
   const date = new Date(dateStr)
@@ -79,17 +79,17 @@ const fedHolidays = (...rangeStr) => {
 // PDF Filler
 
 // // bool handling
-const isBool = v => typeof v === 'boolean'
-const checkbox = v => (v ? 'Yes' : false)
-const handleVal = v => (isBool(v) ? checkbox(v) : v)
+// const isBool = v => typeof v === 'boolean'
+// const checkbox = v => (v ? 'Yes' : false)
+// const handleVal = v => (isBool(v) ? checkbox(v) : v)
 
 // // create formatter
-const keyReducer = (ac, [k, v]) => ({ ...ac, [k]: handleVal(v) })
-const formatPdfKeys = data => Object.entries(data).reduce(keyReducer, {})
+// const keyReducer = (ac, [k, v]) => ({ ...ac, [k]: handleVal(v) })
+// const formatPdfKeys = data => Object.entries(data).reduce(keyReducer, {})
 
 // // append method
-pdfFiller.fill = (src, out, data, callback) =>
-  pdfFiller.fillForm(src, out, formatPdfKeys(data), callback)
+// pdfFiller.fill = (src, out, data, callback) =>
+//   pdfFiller.fillForm(src, out, formatPdfKeys(data), callback)
 
 module.exports = {
   addDays,
@@ -97,8 +97,8 @@ module.exports = {
   getPrevWeek,
   zeroPad,
   zeroHour,
-  fedHolidays,
-  pdfFiller
+  fedHolidays
+  // pdfFiller
 }
 
 // console.log(getPrevWeek().start, getPrevWeek().end)
